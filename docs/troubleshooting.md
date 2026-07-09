@@ -1,0 +1,7 @@
+Deployment Recap
+So initially the site worked fine on Vercel. But during the infra meeting we ran into issues — turned out the main problem was the GitHub repo we were pulling from. It had some outdated/existing files (including an old index.html) that weren't matching what we actually needed. So instead of pulling from GitHub, we just used the actual code straight from the frontend dev.
+Issue 1: S3 upload taking forever (30+ mins, not finishing)
+Realized it was because we included node_modules in the upload — that folder has a ton of tiny files that just kill upload speed. Excluded it (plus a few other files we didn't actually need for hosting), and the upload finished in seconds.
+Issue 2: Site uploaded fine but looked completely broken
+Layout and spacing were all over the place. Turned out I'd uploaded the static files directly without building the project first — so the browser was getting raw/unprocessed CSS (Tailwind) instead of the actual finished styles. Ran npm run build to compile everything properly, uploaded the build output instead, and the site rendered correctly after that.
+Takeaway: always deploy the built output, not the raw source — and double check what you're pulling from GitHub matches what's actually being worked on.
