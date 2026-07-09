@@ -1,0 +1,3 @@
+This project was built as part of the Cloud Build with Peers program, an initiative centred on collaborative learning rather than competition. The goal of the program is for peers to build real projects together while learning cloud and development practices from one another along the way.
+
+As a group, we agreed early on that our project needed to solve an actual problem rather than exist purely as a learning exercise. During our research, we identified that Akwannya did not have a website. We chose to take this on as our project so that Akwannya could have a proper online presence, giving the organization a platform to showcase who they are, what they do, and how people can connect with them.
