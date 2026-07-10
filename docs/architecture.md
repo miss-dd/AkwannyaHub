@@ -1,0 +1,2 @@
+
+Users hit Route 53 for DNS resolution, which routes to CloudFront, secured with an ACM certificate for HTTPS. CloudFront pulls content from the S3 bucket through Origin Access Control, meaning the bucket itself stays fully private and can only be reached by that specific CloudFront distribution. Separately, whenever code is pushed to the GitHub repo, GitHub Actions builds the project and deploys the output straight to that same S3 bucket.

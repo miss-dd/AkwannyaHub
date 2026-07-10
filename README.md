@@ -2,6 +2,27 @@
 
 Akwannya Hub is a static portfolio website built with Vite, React, and Tailwind CSS. The site is deployed to AWS S3 and served through a continuous deployment pipeline powered by GitHub Actions.
 
+## Project Overview
+
+This project was built as part of the Cloud Build with Peers program, an initiative centred on collaborative learning rather than competition. The goal of the program is for peers to build real projects together while learning cloud and development practices from one another along the way.
+
+As a group, we agreed early on that our project needed to solve an actual problem rather than exist purely as a learning exercise. During our research, we identified that Akwannya did not have a website. We chose to take this on as our project so that Akwannya could have a proper online presence, giving the organization a platform to showcase who they are, what they do, and how people can connect with them.
+
+## Architecture
+
+Users reach the site through Route 53 for DNS resolution, which routes to CloudFront. CloudFront is secured with an ACM certificate for HTTPS and pulls content from the S3 bucket through Origin Access Control, meaning the bucket itself stays private and can only be reached by that specific CloudFront distribution. Separately, whenever code is pushed to the GitHub repository, GitHub Actions builds the project and deploys the output directly to that same S3 bucket.
+
+```mermaid
+flowchart TD
+    Users[Users] --> Route53[Route 53]
+    Route53 --> CloudFront[CloudFront]
+    ACM[ACM TLS certificate] -.-> CloudFront
+    CloudFront -->|Via OAC| S3[S3 bucket, private]
+
+    GitHubRepo[GitHub repo] --> GitHubActions[GitHub Actions, build and deploy]
+    GitHubActions --> S3
+```
+
 ## Project Structure
 
 ```
@@ -88,6 +109,3 @@ The `node_modules` folder should never be uploaded to S3 or committed to the rep
 
 This project should be run from a native Linux file system when using Windows Subsystem for Linux. Running the build from a Windows mounted path such as `/mnt/c/...` has caused native dependency resolution errors in the past.
 
-## License
-
-Add license information here.
